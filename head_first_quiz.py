@@ -25,11 +25,15 @@ LIGHT_RED = (255, 100, 100)
 DARK_RED = (139, 0, 0)
 LIGHT_ORANGE = (255, 165, 0)
 DARK_ORANGE = (255, 140, 0)
+VERY_LIGHT_RED = (255, 200, 200)  # rosso molto chiaro
+CLICK_BLUE = (100, 149, 237)  # Cornflower blue
+
 
 # Font per il testo
 font = pygame.font.Font(None, 36)
 title_font = pygame.font.Font(None, 48)
 level_font = pygame.font.Font(None, 120)  # Aumentato la grandezza del titolo
+
 
 # Domande e risposte
 questions = [
@@ -47,18 +51,37 @@ def draw_text_centered(screen, text, font, color, y):
     screen.blit(text_surface, text_rect)
 
 # Funzione per disegnare le opzioni di risposta
-def draw_options(screen, options, selected_option):
+def draw_options(screen, options, selected_option, clicked_index=-1):
     y_offset = 300
     option_rects = []
+    button_width = 300
+    button_height = 60
     for i, option in enumerate(options):
-        color = GREEN if selected_option == i else BLACK
-        option_text = font.render(option, True, color)
-        option_rect = pygame.Rect(screen_width // 2 - 100, y_offset, 200, 50)
-        pygame.draw.rect(screen, LIGHT_BLUE, option_rect)
-        screen.blit(option_text, (option_rect.x + (option_rect.width - option_text.get_width()) // 2, option_rect.y + (option_rect.height - option_text.get_height()) // 2))
+        if clicked_index == i:
+            text_color = WHITE
+        elif selected_option == i:
+            text_color = GREEN
+        else:
+            text_color = BLACK
+
+        option_text = font.render(option, True, text_color)
+        option_rect = pygame.Rect((screen_width - button_width) // 2, y_offset, button_width, button_height)
+
+        # Cambia colore se cliccato
+        if clicked_index == i:
+            bg_color = CLICK_BLUE  # blu evidenziato
+        else:
+            bg_color = LIGHT_BLUE
+
+        pygame.draw.rect(screen, bg_color, option_rect, border_radius=10)
+        screen.blit(option_text, (
+            option_rect.x + (option_rect.width - option_text.get_width()) // 2,
+            option_rect.y + (option_rect.height - option_text.get_height()) // 2
+        ))
         option_rects.append(option_rect)
-        y_offset += 60
+        y_offset += button_height + 20
     return option_rects
+
 
 # Funzione per disegnare i bottoni
 def draw_button(screen, text, x, y, width, height, button_color, text_color):
@@ -90,7 +113,19 @@ while running:
             for i, rect in enumerate(option_rects):
                 if rect.collidepoint(event.pos):
                     selected_option = i
-                    if questions[current_question]["options"][selected_option] == questions[current_question]["answer"]:
+
+                    # Disegna con evidenziazione
+                    screen.fill(WHITE)
+                    draw_text_centered(screen, questions[current_question]["question"], title_font, DARK_BLUE, 200)
+                    draw_options(screen, questions[current_question]["options"], selected_option, clicked_index=i)
+                    pygame.display.flip()
+
+                    # Pausa breve per mostrare il clic visivamente
+                    time.sleep(0.2)
+
+                    # Controllo risposta
+                    if questions[current_question]["options"][selected_option] == questions[current_question][
+                        "answer"]:
                         score += 1
                     current_question += 1
                     selected_option = -1
@@ -98,9 +133,10 @@ while running:
                         show_score = True
                         score_start_time = time.time()
 
+
     if show_first_level:
-        screen.fill(LIGHT_GREEN)
-        draw_text_centered(screen, "FIRST LEVEL", level_font, DARK_GREEN, screen_height // 2 - 100)
+        screen.fill(LIGHT_GREEN)  # Sfondo rosso chiaro
+        draw_text_centered(screen, "FIRST LEVEL", level_font, DARK_GREEN, screen_height // 2 - 100)  # Testo rosso scuro
         draw_text_centered(screen, "BODY PART: Head", title_font, DARK_GREEN, screen_height // 2 + 20)
         if time.time() - first_level_start_time > first_level_display_time:
             show_first_level = False
@@ -137,7 +173,9 @@ while running:
                                 show_first_level = True
                                 first_level_start_time = time.time()
                             elif button_y + 120 <= mouse_y <= button_y + 170:
+                                # Questo chiude la finestra quando premi Exit
                                 running = False
+
     # Aggiornamento dello schermo
     pygame.display.flip()
 
