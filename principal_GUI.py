@@ -78,6 +78,16 @@ def start_game_hair():
     else:
         print(f"Path {script_path} not found.")
 
+
+# Funzione per avviare il gioco (Shoulder)
+def start_game_shoulder():
+    script_path = os.path.join(os.path.dirname(__file__), "shoulder_first_quiz.py")
+    if os.path.exists(script_path):
+        subprocess.Popen([sys.executable, script_path])
+    else:
+        print(f"Path {script_path} not found.")
+
+
 # Loop principale
 running = True
 start_time = pygame.time.get_ticks()
@@ -176,6 +186,8 @@ while running:
                 start_game_head()
             elif hair_button_rect.collidepoint(event.pos):
                 start_game_hair()
+            elif shoulder_button_rect.collidepoint(event.pos):
+                start_game_shoulder()
             elif exit_button_rect.collidepoint(event.pos):
                 running = False
 
