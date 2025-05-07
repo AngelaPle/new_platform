@@ -47,7 +47,6 @@ exit_button_rect = pygame.Rect(screen_width - 110, screen_height - 60, 100, 50) 
 
 # Font per il testo dei bottoni
 font = pygame.font.Font(None, 36)
-play_button_text = font.render("PLAY", True, dark_green)  # Scritta in verde scuro
 exit_button_text = font.render("EXIT", True, (200, 0, 0))  # Scritta in rosso scuro
 
 # Font per il testo grande a sinistra
@@ -113,8 +112,6 @@ while running:
         screen.blit(parts_text2, ((screen_width // 2) + 250, 55))
 
     # Disegno dei bottoni con bordi tondeggianti
-    pygame.draw.rect(screen, play_button_color, play_button_rect, border_radius=10)
-    screen.blit(play_button_text, (play_button_rect.x + (play_button_rect.width - play_button_text.get_width()) // 2, play_button_rect.y + (play_button_rect.height - play_button_text.get_height()) // 2))
     pygame.draw.rect(screen, exit_button_color, exit_button_rect, border_radius=10)
     screen.blit(exit_button_text, (exit_button_rect.x + (exit_button_rect.width - exit_button_text.get_width()) // 2, exit_button_rect.y + (exit_button_rect.height - exit_button_text.get_height()) // 2))
 
