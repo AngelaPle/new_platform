@@ -32,7 +32,7 @@ skin_pink = (255, 218, 185)  # Rosa pelle
 dark_skin_pink = (205, 133, 63)  # Rosa pelle scuro
 light_red = (255, 100, 100)  # Rosso chiaro
 dark_red = (139, 0, 0)  # Rosso scuro
-light_orange = (255, 165, 0) # Arancione chiaro
+light_orange = (255, 255, 153) # Arancione chiaro
 dark_orange = (255, 140, 0) # Arancione scuro
 light_brown = (210, 180, 140) # Marrone chiaro
 dark_brown = (139, 69, 19) # Marrone scuro
@@ -87,6 +87,37 @@ def start_game_shoulder():
     else:
         print(f"Path {script_path} not found.")
 
+# Funzione per avviare il gioco (Eye)
+def start_game_eye():
+    script_path = os.path.join(os.path.dirname(__file__), "eye_first_quiz.py")
+    if os.path.exists(script_path):
+        subprocess.Popen([sys.executable, script_path])
+    else:
+        print(f"Path {script_path} not found.")
+
+# Funzione per avviare il gioco (Hear)
+def start_game_ear():
+    script_path = os.path.join(os.path.dirname(__file__), "ear_first_quiz.py")
+    if os.path.exists(script_path):
+        subprocess.Popen([sys.executable, script_path])
+    else:
+        print(f"Path {script_path} not found.")
+
+# Funzione per avviare il gioco (Arm)
+def start_game_arm():
+    script_path = os.path.join(os.path.dirname(__file__), "arm_first_quiz.py")
+    if os.path.exists(script_path):
+        subprocess.Popen([sys.executable, script_path])
+    else:
+        print(f"Path {script_path} not found.")
+
+# Funzione per avviare il gioco (Finger)
+def start_game_finger():
+    script_path = os.path.join(os.path.dirname(__file__), "finger_first_quiz.py")
+    if os.path.exists(script_path):
+        subprocess.Popen([sys.executable, script_path])
+    else:
+        print(f"Path {script_path} not found.")
 
 # Loop principale
 running = True
@@ -169,7 +200,7 @@ while running:
     screen.blit(hair_button_text, (hair_button_rect.x + (hair_button_rect.width - hair_button_text.get_width()) // 2, hair_button_rect.y + (hair_button_rect.height - hair_button_text.get_height()) // 2))
     pygame.draw.rect(screen, light_blue, shoulder_button_rect, border_radius=10)
     screen.blit(shoulder_button_text, (shoulder_button_rect.x + (shoulder_button_rect.width - shoulder_button_text.get_width()) // 2, shoulder_button_rect.y + (shoulder_button_rect.height - shoulder_button_text.get_height()) // 2))
-    pygame.draw.rect(screen, skin_pink, arm_button_rect, border_radius=10)
+    pygame.draw.rect(screen, light_orange, arm_button_rect, border_radius=10)
     screen.blit(arm_button_text, (arm_button_rect.x + (arm_button_rect.width - arm_button_text.get_width()) // 2, arm_button_rect.y + (arm_button_rect.height - arm_button_text.get_height()) // 2))
     pygame.draw.rect(screen, light_brown, hand_button_rect, border_radius=10)
     screen.blit(hand_button_text, (hand_button_rect.x + (hand_button_rect.width - hand_button_text.get_width()) // 2, hand_button_rect.y + (hand_button_rect.height - hand_button_text.get_height()) // 2))
@@ -188,6 +219,14 @@ while running:
                 start_game_hair()
             elif shoulder_button_rect.collidepoint(event.pos):
                 start_game_shoulder()
+            elif eye_button_rect.collidepoint(event.pos):
+                start_game_eye()
+            elif ear_button_rect.collidepoint(event.pos):
+                start_game_eye()
+            elif arm_button_rect.collidepoint(event.pos):
+                start_game_eye()
+            elif finger_button_rect.collidepoint(event.pos):
+                start_game_finger()
             elif exit_button_rect.collidepoint(event.pos):
                 running = False
 
