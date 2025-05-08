@@ -119,6 +119,49 @@ def start_game_finger():
     else:
         print(f"Path {script_path} not found.")
 
+# Funzione per avviare il gioco (Hand)
+def start_game_hand():
+    script_path = os.path.join(os.path.dirname(__file__), "hand_first_quiz.py")
+    if os.path.exists(script_path):
+        subprocess.Popen([sys.executable, script_path])
+    else:
+        print(f"Path {script_path} not found.")
+
+# Funzione per avviare il gioco (Knee)
+def start_game_knee():
+    script_path = os.path.join(os.path.dirname(__file__), "knee_first_quiz.py")
+    if os.path.exists(script_path):
+        subprocess.Popen([sys.executable, script_path])
+    else:
+        print(f"Path {script_path} not found.")
+
+# Funzione per avviare il gioco (Knee)
+def start_game_foot():
+    script_path = os.path.join(os.path.dirname(__file__), "foot_first_quiz.py")
+    if os.path.exists(script_path):
+        subprocess.Popen([sys.executable, script_path])
+    else:
+        print(f"Path {script_path} not found.")
+
+    # Funzione per avviare il gioco (Knee)
+
+def start_game_leg():
+    script_path = os.path.join(os.path.dirname(__file__), "leg_first_quiz.py")
+    if os.path.exists(script_path):
+        subprocess.Popen([sys.executable, script_path])
+    else:
+        print(f"Path {script_path} not found.")
+
+# Funzione per avviare il gioco (Knee)
+def start_game_toe():
+    script_path = os.path.join(os.path.dirname(__file__), "toe_first_quiz.py")
+    if os.path.exists(script_path):
+        subprocess.Popen([sys.executable, script_path])
+    else:
+        print(f"Path {script_path} not found.")
+
+
+
 # Loop principale
 running = True
 start_time = pygame.time.get_ticks()
@@ -222,11 +265,21 @@ while running:
             elif eye_button_rect.collidepoint(event.pos):
                 start_game_eye()
             elif ear_button_rect.collidepoint(event.pos):
-                start_game_eye()
+                start_game_ear()
             elif arm_button_rect.collidepoint(event.pos):
-                start_game_eye()
+                start_game_arm()
             elif finger_button_rect.collidepoint(event.pos):
                 start_game_finger()
+            elif hand_button_rect.collidepoint(event.pos):
+                start_game_hand()
+            elif knee_button_rect.collidepoint(event.pos):
+                start_game_knee()
+            elif foot_button_rect.collidepoint(event.pos):
+                start_game_foot()
+            elif leg_button_rect.collidepoint(event.pos):
+                start_game_leg()
+            elif toe_button_rect.collidepoint(event.pos):
+                start_game_toe()
             elif exit_button_rect.collidepoint(event.pos):
                 running = False
 
